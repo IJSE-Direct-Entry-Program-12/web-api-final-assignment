@@ -36,7 +36,7 @@
         <i class="bi bi-person-bounding-box"></i>
         <span class="text-primary">E</span>MS
     </h3>
-    <button class="btn btn-sm btn-outline-success">+ NEW EMPLOYEE</button>
+    <button id="btn-new-employee" class="btn btn-sm btn-outline-success">+ NEW EMPLOYEE</button>
 </header>
 <main class="container">
     <div class="row">
@@ -68,6 +68,7 @@
             <div class="mt-2">
                 <label class="form-label" for="txt-name">Employee Department</label>
                 <select id="cb-department" class="form-select">
+                    <option value="no-department"></option>
                     <option value="academic">Academic</option>
                     <option value="hr">Human Resource</option>
                     <option value="it/se">IT/SE</option>
@@ -77,12 +78,12 @@
                 <div class="invalid-feedback"></div>
             </div>
             <div class="mt-3">
-                <button class="btn btn-primary btn-sm">SAVE</button>
-                <button class="btn btn-outline-danger btn-sm">CLEAR</button>
+                <button id="btn-save" disabled class="btn btn-primary btn-sm">SAVE</button>
+                <button type="reset" class="btn btn-outline-danger btn-sm">CLEAR</button>
             </div>
         </form>
         <section class="col-12 col-lg-8 p-0">
-            <table class="table table-bordered table-hover">
+            <table id="tbl-employee" class="table table-bordered table-hover">
                 <thead>
                 <tr>
                     <th>ID</th>
