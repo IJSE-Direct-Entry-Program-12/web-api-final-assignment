@@ -1,6 +1,8 @@
 /* Enable Tooltip Texts */
-const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+function enableToolTipTexts() {
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+}
 
 const API_URL = 'http://localhost:3000/employees';
 
@@ -28,7 +30,49 @@ $("form").on('submit', (e) => {
 });
 
 async function saveEmployee(){
+    const newEmployee = {
+        id: $("#txt-id").val().trim(),
+        name: $("#txt-name").val().trim(),
+        address: $("#txt-address").val().trim(),
+        gender: $('input[type="radio"][name="gender"]:checked').val(),
+        department: $("#cb-department").val().trim()
+    }
+    try {
+        $("#btn-new-employee, form input, form button").prop('disabled', true);
+        const response = await axios(API_URL, {
+            method: 'POST',
+            data: newEmployee,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        if (response.status !== 201){
+            throw new Error(response.status + ": " + response.data);
+        }
+        addEmployeeRow(newEmployee);
+    }catch (e){
+        alert("Failed to save the employee, try again");
+        console.error(e);
+    } finally {
+        $("#btn-new-employee, form input, form button").prop('disabled', false);
+    }
+}
 
+function addEmployeeRow({id, name, gender, department}){
+    const rowHtml = `
+                    <tr tabindex="0">
+                        <td>${id}</td>
+                        <td>
+                            <i class="bi bi-gender-${gender}"></i>
+                            ${name}
+                        </td>
+                        <td>${department}</td>
+                        <td><i data-bs-toggle="tooltip" data-bs-title="Delete" class="bi bi-trash3-fill"></i></td>
+                    </tr>    
+    `;
+    $("#tbl-employee > tbody").append(rowHtml);
+    $("#tbl-employee > tfoot").hide();
+    enableToolTipTexts();
 }
 
 function validateData() {
