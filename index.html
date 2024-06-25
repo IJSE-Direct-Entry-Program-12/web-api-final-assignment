@@ -54,7 +54,9 @@
                 <label class="form-label" for="txt-address">Employee Address</label>
                 <textarea id="txt-address" class="form-control"
                           placeholder="Eg. 10B, Grace Peries Road, Panadura"></textarea>
-                <div class="invalid-feedback"></div>
+                <div class="invalid-feedback">
+                    Address should have at least 3 characters
+                </div>
             </div>
             <div class="mt-2 border p-2">
                 <label class="form-label" for="rd-male">Employee Gender</label>
@@ -75,7 +77,7 @@
                     <option value="marketing">Marketing</option>
                     <option value="finance">Finance</option>
                 </select>
-                <div class="invalid-feedback"></div>
+                <div class="invalid-feedback">Employee department can't be empty</div>
             </div>
             <div class="mt-3">
                 <button id="btn-save" disabled class="btn btn-primary btn-sm">SAVE</button>
